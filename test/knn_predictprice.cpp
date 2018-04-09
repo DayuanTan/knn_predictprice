@@ -500,7 +500,8 @@ int main()
         cout << "10th day's volume: " << tenthDayPredictedVolume << endl;
         cout << "\n\n-------------------\n\n-------------------\n\n-------------------\n\n-------------------\n\n-------------------\n\n\n\n" << endl;
         
-        outFile << "2-8-2018" << ',' << tenthDayPredictedOpenPricce << ',' << tenthDayPredictedHighPricce << ',' << tenthDayPredictedLowPricce << ',' << tenthDayPredictedClosePricce << ',' << tenthDayPredictedVolume << endl;  
+        cout << eightdaynameset << endl;
+        outFile << "2-8-2018" << ',' << eightdaynameset << ',' << tenthDayPredictedOpenPricce << ',' << tenthDayPredictedHighPricce << ',' << tenthDayPredictedLowPricce << ',' << tenthDayPredictedClosePricce << ',' << tenthDayPredictedVolume << endl;  
         
 
     }
