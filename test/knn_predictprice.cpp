@@ -4,6 +4,8 @@
 //
 //  Created by Dayuan Tan on 4/4/18.
 //  data in all_stockschanges_5yr_apart.csv file is ordered by 'open prices changes; high prices changes; low prices changes; close prices changes; volume prices changes; name'
+//  data in 9days_8changes_b4_predictedday.csv file is ordered by '8 open prices changes; 8 high prices changes; 8 low prices changes; 8 close prices changes; 8 volume prices changes; name;
+//    9th day's open price, 9th day's high price, 9th day's low price, 9th day's close price, 9th day's volume'
 
 #include <iostream>
 #include <fstream>
@@ -17,6 +19,12 @@ using namespace std; // must add this line for vector
 
 float str2flt(string num){  
     float res;  
+    stringstream stream(num);  
+    stream>>res;  
+    return res;  
+} 
+int str2int(string num){  
+    int res;  
     stringstream stream(num);  
     stream>>res;  
     return res;  
@@ -39,6 +47,11 @@ float compEuclideanDistFloat(vector<float> eightdayElem, vector<float> historyEl
 
 int main()
 {
+    // predicted_price.csv is used for store predicted price
+    ofstream outFile("predicted_price.csv");
+    outFile << "date" << ',' << "predicted open price" << ',' << "predicted high price" << ',' << "predicted low price" << ',' << "predicted close price" << ',' << "predicted volume" << endl;  
+        
+
     // read 8 days prices changes before the day we want to predict
     ifstream eightdayfin("9days_8changes_b4_predictedday.csv");
     string line;
@@ -47,6 +60,7 @@ int main()
     vector<float> eightdaylowsflt;
     vector<float> eightdayclosesflt;
     vector<float> eightdayvolumesflt;
+    cout << "hello: " << eightdayfin << endl;
     while (getline(eightdayfin, line))   
     {
         float openDistanceMix = 100000000000.0;
@@ -71,11 +85,17 @@ int main()
         string eightdaycloseset;
         string eightdayvolumeset;
         string eightdaynameset;
+        string ninthdaydataset;
+        float ninthDayPredictedOpenPricce; 
+        float ninthDayPredictedHighPricce; 
+        float ninthDayPredictedLowPricce; 
+        float ninthDayPredictedClosePricce; 
+        int ninthDayPredictedVolume;
         while (getline(sin, field, ';')) //put chars of stringstream 'sin' into string 'filed', seperate by ';' 
         {
             fields.push_back(field); //append just read string into 'filed'
         }
-        if (fields.size() == 6)
+        if (fields.size() == 7)
         {
             eightdayopenset = fields[0]; //assign
             eightdayhighset = fields[1]; 
@@ -83,8 +103,33 @@ int main()
             eightdaycloseset = fields[3];
             eightdayvolumeset = fields[4];
             eightdaynameset = fields[5];
-            cout <<"eight days processed strings："<< eightdaynameset << "\n" << "eight days open changes set:" << eightdayopenset << "\n" << "eight days high changes set:" << eightdayhighset << "\n" << "eight days low changes set:" << eightdaylowset<< "\n" << "eight days close changes set:" << eightdaycloseset << "\n" << "eight days volume changes set:" << eightdayvolumeset << "\n" << endl;
+            ninthdaydataset = fields[6]; // 9th day's data, just the day before predicted day. 
+            cout <<"eight days processed strings："<< eightdaynameset << "\n" << "eight days open changes set:" << eightdayopenset << "\n" << "eight days high changes set:" << eightdayhighset << "\n" << "eight days low changes set:" << eightdaylowset<< "\n" << "eight days close changes set:" << eightdaycloseset << "\n" << "eight days volume changes set:" << eightdayvolumeset << endl;
+            cout <<"9th day's data: " << ninthdaydataset << "\n" << endl;
         }
+
+        vector<string> ninthdaydatas;
+        string ninthdaydata;
+        istringstream ninthdaydatasteam(ninthdaydataset);
+        while (getline(ninthdaydatasteam, ninthdaydata, ','))
+        {
+            ninthdaydatas.push_back(ninthdaydata);
+        }
+        if (ninthdaydatas.size() == 5) // 9th day's open price, 9th day's high price, 9th day's low price, 9th day's close price, 9th day's volume
+        {
+            ninthDayPredictedOpenPricce = str2flt(ninthdaydatas[0]);
+            ninthDayPredictedHighPricce = str2flt(ninthdaydatas[1]);
+            ninthDayPredictedLowPricce = str2flt(ninthdaydatas[0]);
+            ninthDayPredictedClosePricce = str2flt(ninthdaydatas[1]);
+            ninthDayPredictedVolume = str2int(ninthdaydatas[0]);
+
+            cout << "9th day open price : " << ninthDayPredictedOpenPricce <<endl;
+            cout << "9th day high price : " << ninthDayPredictedHighPricce <<endl;
+            cout << "9th day low price : " << ninthDayPredictedLowPricce <<endl;
+            cout << "9th day close price : " << ninthDayPredictedClosePricce <<endl;
+            cout << "9th day volume : " << ninthDayPredictedVolume <<endl;
+        }
+
 
         vector<string> eightdayopens;
         string eightdayopen;
@@ -430,13 +475,34 @@ int main()
         for (int i=0;i<=8;i++)
         {
             matchedvolumesfltInt.push_back( (int)(matchedvolumesflt[i] * 1000000) );
-            cout << "final matchedopensflt: " << matchedopensflt[i] << "final matchedhighsflt: " << matchedhighsflt[i] << "final matchedlowsflt: " << matchedlowsflt[i] << "final matchedclosesflt: " << matchedclosesflt[i] << "final matchedvolumesfltInt: " << matchedvolumesfltInt[i] << endl;
+            cout << "final matchedopensflt: " << matchedopensflt[i] << " final matchedhighsflt: " << matchedhighsflt[i] << " final matchedlowsflt: " << matchedlowsflt[i] << " final matchedclosesflt: " << matchedclosesflt[i] << " final matchedvolumesfltInt: " << matchedvolumesfltInt[i] << "\n" << endl;
         }
+        
 
-        //----------------------get the predicted price on 9th day-----------
+        //----------------------get the predicted price on 10th day-----------
+        cout << "9th day open price : " << ninthDayPredictedOpenPricce <<endl;
+        cout << "9th day high price : " << ninthDayPredictedHighPricce <<endl;
+        cout << "9th day low price : " << ninthDayPredictedLowPricce <<endl;
+        cout << "9th day close price : " << ninthDayPredictedClosePricce <<endl;
+        cout << "9th day volume : " << ninthDayPredictedVolume <<endl;
+        float tenthDayPredictedOpenPricce = matchedopensflt[8] + ninthDayPredictedOpenPricce; // matched price change + 9th day's open price = 10th day's open price
+        float tenthDayPredictedHighPricce = matchedhighsflt[8] + ninthDayPredictedHighPricce; // matched price change + 9th day's high price = 10th day's high price
+        float tenthDayPredictedLowPricce = matchedlowsflt[8] + ninthDayPredictedLowPricce; // matched price change + 9th day's low price = 10th day's low price
+        float tenthDayPredictedClosePricce = matchedclosesflt[8] + ninthDayPredictedClosePricce; // matched price change + 9th day's close price = 10th day's close price
+        int tenthDayPredictedVolume = matchedvolumesfltInt[8] + ninthDayPredictedVolume; // matched volume change + 9th day's volume = 10th day's volume
+        cout << "10th day's open price: " << tenthDayPredictedOpenPricce << endl;
+        cout << "10th day's high price: " << tenthDayPredictedHighPricce << endl;
+        cout << "10th day's low price: " << tenthDayPredictedLowPricce << endl;
+        cout << "10th day's close price: " << tenthDayPredictedClosePricce << endl;
+        cout << "10th day's volume: " << tenthDayPredictedVolume << endl;
+        cout << "\n\n-------------------\n\n-------------------\n\n-------------------\n\n-------------------\n\n-------------------\n\n\n\n" << endl;
+        
+        outFile << "2-8-2018" << ',' << tenthDayPredictedOpenPricce << ',' << tenthDayPredictedHighPricce << ',' << tenthDayPredictedLowPricce << ',' << tenthDayPredictedClosePricce << ',' << tenthDayPredictedVolume << endl;  
         
 
     }
+
+    outFile.close(); 
     return EXIT_SUCCESS;
 }
 

@@ -1,9 +1,12 @@
 //
-//  knn_predictprice.cpp
+//  knn_predictprice_do.cpp
 //  
 //
 //  Created by Dayuan Tan on 4/4/18.
-//  data in all_stockschanges_5yr.csv file is ordered by 'open prices changes; high prices changes; low prices changes; close prices changes; volume prices changes; name'
+//  data in all_stockschanges_5yr.csv file is ordered by '9 open prices changes; 9 high prices changes; 9 low prices changes; 9 close prices changes; 9 volume prices changes; name'
+//  data in 9days_8changes_4predict.csv file is ordered by '8 open prices changes; 8 high prices changes; 8 low prices changes; 8 close prices changes; 8 volume prices changes; name;
+//    9th day's open price, 9th day's high price, 9th day's low price, 9th day's close price, 9th day's volume'
+
 
 #include <iostream>
 #include <fstream>
@@ -40,13 +43,14 @@ float compEuclideanDistFloat(vector<float> eightdayElem, vector<float> historyEl
 int main()
 {
     // read 8 days prices changes before the day we want to predict
-    ifstream eightdayfin("9days_8changes_4_predict.csv");
+    ifstream eightdayfin("9days_8changes_4predict.csv");
     string line;
     vector<float> eightdayopensflt;
     vector<float> eightdayhighsflt;
     vector<float> eightdaylowsflt;
     vector<float> eightdayclosesflt;
     vector<float> eightdayvolumesflt;
+    cout << "hello: " << eightdayfin << endl;
     while (getline(eightdayfin, line))   
     {
         float openDistanceMix = 100000000000.0;
