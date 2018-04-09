@@ -12,7 +12,6 @@
 #include <sstream> // for stringstream
 #include <string>
 #include <vector>
-#include <tuple>
 #include "math.h"
 
 using namespace std; // must add this line for vector
@@ -48,7 +47,7 @@ int main()
 {
     // predicted_price.csv is used for store predicted price
     ofstream outFile("predicted_price.csv");
-    outFile << "date" << ',' << "predicted open price" << ',' << "predicted high price" << ',' << "predicted low price" << ',' << "predicted close price" << ',' << "predicted volume" << endl;  
+    outFile << "date" << ',' << "name" << ',' << "predicted open price" << ',' << "predicted high price" << ',' << "predicted low price" << ',' << "predicted close price" << ',' << "predicted volume" << endl;  
         
 
     // read 8 days prices changes before the day we want to predict
@@ -114,12 +113,11 @@ int main()
         {
             ninthDayPredictedOpenPricce = str2flt(ninthdaydatas[0]);
             ninthDayPredictedHighPricce = str2flt(ninthdaydatas[1]);
-            ninthDayPredictedLowPricce = str2flt(ninthdaydatas[0]);
-            ninthDayPredictedClosePricce = str2flt(ninthdaydatas[1]);
-            ninthDayPredictedVolume = str2int(ninthdaydatas[0]);
-
+            ninthDayPredictedLowPricce = str2flt(ninthdaydatas[2]);
+            ninthDayPredictedClosePricce = str2flt(ninthdaydatas[3]);
+            ninthDayPredictedVolume = str2int(ninthdaydatas[4]);
         }
-
+        vector<string>(ninthdaydatas).swap(ninthdaydatas);
 
         vector<string> eightdayopens;
         string eightdayopen;
@@ -128,14 +126,14 @@ int main()
         {
             eightdayopens.push_back(eightdayopen);
         }
-        //vector<float> eightdayopensflt;
         if (eightdayopens.size() == 8)
         {
-            for (int i=0;i<=eightdayopens.size();i++)
+            for (int i=0;i<eightdayopens.size();i++)
             {
                 eightdayopensflt.push_back( str2flt(eightdayopens[i]) );
             }
         }
+        vector<string>(eightdayopens).swap(eightdayopens);
 
         vector<string> eightdayhighs;
         string eightdayhigh;
@@ -144,14 +142,14 @@ int main()
         {
             eightdayhighs.push_back(eightdayhigh);
         }
-        //vector<float> eightdayhighsflt;
         if (eightdayhighs.size() == 8)
         {
-            for (int i=0;i<=eightdayhighs.size();i++)
+            for (int i=0;i<eightdayhighs.size();i++)
             {
                 eightdayhighsflt.push_back( str2flt(eightdayhighs[i]) );
             }
         }
+        vector<string>(eightdayhighs).swap(eightdayhighs);
 
         vector<string> eightdaylows;
         string eightdaylow;
@@ -160,14 +158,14 @@ int main()
         {
             eightdaylows.push_back(eightdaylow);
         }
-        //vector<float> eightdaylowsflt;
         if (eightdaylows.size() == 8)
         {
-            for (int i=0;i<=eightdaylows.size();i++)
+            for (int i=0;i<eightdaylows.size();i++)
             {
                 eightdaylowsflt.push_back( str2flt(eightdaylows[i]) );
             }
         }
+        vector<string>(eightdaylows).swap(eightdaylows);
 
         vector<string> eightdaycloses;
         string eightdayclose;
@@ -176,14 +174,14 @@ int main()
         {
             eightdaycloses.push_back(eightdayclose);
         }
-        //vector<float> eightdayclosesflt;
         if (eightdaycloses.size() == 8)
         {
-            for (int i=0;i<=eightdaycloses.size();i++)
+            for (int i=0;i<eightdaycloses.size();i++)
             {
                 eightdayclosesflt.push_back( str2flt(eightdaycloses[i]) );
             }
         }
+        vector<string>(eightdaycloses).swap(eightdaycloses);
 
         vector<string> eightdayvolumes;
         string eightdayvolume;
@@ -192,20 +190,19 @@ int main()
         {
             eightdayvolumes.push_back(eightdayvolume);
         }
-        //vector<int> eightdayvolumesflt;
         if (eightdayvolumes.size() == 8)
         {
-            for (int i=0;i<=eightdayvolumes.size();i++)
+            for (int i=0;i<eightdayvolumes.size();i++)
             {
                 eightdayvolumesflt.push_back( (float)str2flt(eightdayvolumes[i]) / (float)1000000 );
             }
         }
+        vector<string>(eightdayvolumes).swap(eightdayvolumes);
     
 
         //----------------------iterate process history 9 price changes sets-----------
 
         ifstream fin("all_stockschanges_5yr.csv"); //open filestream
-        //string line;
         while (getline(fin, line))   //read a line by '\n'; stop when meet EOF
         {
             istringstream sin(line); //read whole line into stringstream 'sin'
@@ -243,11 +240,12 @@ int main()
                 vector<float> opensflt;
                 if (opens.size() == 9)
                 {
-                    for (int i=0;i<=opens.size();i++)
+                    for (int i=0;i<opens.size();i++)
                     {
                         opensflt.push_back( str2flt(opens[i]) );
                     }
                 }
+                vector<string>(opens).swap(opens);
 
                 vector<string> highs;
                 string high;
@@ -259,11 +257,12 @@ int main()
                 vector<float> highsflt;
                 if (highs.size() == 9)
                 {
-                    for (int i=0;i<=highs.size();i++)
+                    for (int i=0;i<highs.size();i++)
                     {
                         highsflt.push_back( str2flt(highs[i]) );
                     }
                 }
+                vector<string>(highs).swap(highs);
 
                 vector<string> lows;
                 string low;
@@ -275,11 +274,12 @@ int main()
                 vector<float> lowsflt;
                 if (lows.size() == 9)
                 {
-                    for (int i=0;i<=lows.size();i++)
+                    for (int i=0;i<lows.size();i++)
                     {
                         lowsflt.push_back( str2flt(lows[i]) );
                     }
                 }
+                vector<string>(lows).swap(lows);
 
                 vector<string> closes;
                 string close;
@@ -291,11 +291,12 @@ int main()
                 vector<float> closesflt;
                 if (closes.size() == 9)
                 {
-                    for (int i=0;i<=closes.size();i++)
+                    for (int i=0;i<closes.size();i++)
                     {
                         closesflt.push_back( str2flt(closes[i]) );
                     }
                 }
+                vector<string>(closes).swap(closes);
 
                 vector<string> volumes;
                 string volume;
@@ -307,11 +308,12 @@ int main()
                 vector<float> volumesflt;
                 if (volumes.size() == 9)
                 {
-                    for (int i=0;i<=volumes.size();i++)
+                    for (int i=0;i<volumes.size();i++)
                     {
                         volumesflt.push_back( (float)str2flt(volumes[i]) / (float)1000000);
                     }
                 }
+                vector<string>(volumes).swap(volumes);
             
 
                 //----------------------compute euclidean Distance-----------
@@ -350,7 +352,7 @@ int main()
                 continue;
             }
         }
-
+        fin.close();
 
         //----------------------print final matched 9 price changes set-----------
         for (int i=0;i<=8;i++)
@@ -365,13 +367,15 @@ int main()
         float tenthDayPredictedLowPricce = matchedlowsflt[8] + ninthDayPredictedLowPricce; // matched price change + 9th day's low price = 10th day's low price
         float tenthDayPredictedClosePricce = matchedclosesflt[8] + ninthDayPredictedClosePricce; // matched price change + 9th day's close price = 10th day's close price
         int tenthDayPredictedVolume = matchedvolumesfltInt[8] + ninthDayPredictedVolume; // matched volume change + 9th day's volume = 10th day's volume
-    
-        outFile << "2-8-2018" << ',' << tenthDayPredictedOpenPricce << ',' << tenthDayPredictedHighPricce << ',' << tenthDayPredictedLowPricce << ',' << tenthDayPredictedClosePricce << ',' << tenthDayPredictedVolume << endl;  
+        
+        cout << eightdaynameset << endl;
+        outFile << "2-8-2018" << ',' << eightdaynameset << ',' << tenthDayPredictedOpenPricce << ',' << tenthDayPredictedHighPricce << ',' << tenthDayPredictedLowPricce << ',' << tenthDayPredictedClosePricce << ',' << tenthDayPredictedVolume << endl;  
         
 
     }
 
+    eightdayfin.close();
     outFile.close(); 
-    return EXIT_SUCCESS;
+    return 0;
 }
 

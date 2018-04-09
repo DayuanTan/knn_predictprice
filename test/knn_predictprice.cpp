@@ -48,7 +48,7 @@ int main()
 {
     // predicted_price.csv is used for store predicted price
     ofstream outFile("predicted_price.csv");
-    outFile << "date" << ',' << "predicted open price" << ',' << "predicted high price" << ',' << "predicted low price" << ',' << "predicted close price" << ',' << "predicted volume" << endl;  
+    outFile << "date" << ',' << "name" << ',' << "predicted open price" << ',' << "predicted high price" << ',' << "predicted low price" << ',' << "predicted close price" << ',' << "predicted volume" << endl;  
         
 
     // read 8 days prices changes before the day we want to predict
