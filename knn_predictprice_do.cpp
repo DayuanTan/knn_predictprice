@@ -40,7 +40,7 @@ float compEuclideanDistFloat(vector<float> eightdayElem, vector<float> historyEl
 int main()
 {
     // read 8 days prices changes before the day we want to predict
-    ifstream eightdayfin("9days_8changes_b4_predictedday.csv");
+    ifstream eightdayfin("9days_8changes_4_predict.csv");
     string line;
     vector<float> eightdayopensflt;
     vector<float> eightdayhighsflt;
@@ -214,7 +214,7 @@ int main()
 
         //----------------------iterate process history 9 price changes sets-----------
 
-        ifstream fin("all_stockschanges_5yr_v2.csv"); //open filestream
+        ifstream fin("all_stockschanges_5yr.csv"); //open filestream
         //string line;
         while (getline(fin, line))   //read a line by '\n'; stop when meet EOF
         {
