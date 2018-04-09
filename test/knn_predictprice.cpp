@@ -12,7 +12,6 @@
 #include <sstream> // for stringstream
 #include <string>
 #include <vector>
-#include <tuple>
 #include "math.h"
 
 using namespace std; // must add this line for vector
@@ -119,9 +118,9 @@ int main()
         {
             ninthDayPredictedOpenPricce = str2flt(ninthdaydatas[0]);
             ninthDayPredictedHighPricce = str2flt(ninthdaydatas[1]);
-            ninthDayPredictedLowPricce = str2flt(ninthdaydatas[0]);
-            ninthDayPredictedClosePricce = str2flt(ninthdaydatas[1]);
-            ninthDayPredictedVolume = str2int(ninthdaydatas[0]);
+            ninthDayPredictedLowPricce = str2flt(ninthdaydatas[2]);
+            ninthDayPredictedClosePricce = str2flt(ninthdaydatas[3]);
+            ninthDayPredictedVolume = str2int(ninthdaydatas[4]);
 
             cout << "9th day open price : " << ninthDayPredictedOpenPricce <<endl;
             cout << "9th day high price : " << ninthDayPredictedHighPricce <<endl;
@@ -129,7 +128,7 @@ int main()
             cout << "9th day close price : " << ninthDayPredictedClosePricce <<endl;
             cout << "9th day volume : " << ninthDayPredictedVolume <<endl;
         }
-
+        vector<string>(ninthdaydatas).swap(ninthdaydatas);
 
         vector<string> eightdayopens;
         string eightdayopen;
@@ -138,10 +137,9 @@ int main()
         {
             eightdayopens.push_back(eightdayopen);
         }
-        //vector<float> eightdayopensflt;
         if (eightdayopens.size() == 8)
         {
-            for (int i=0;i<=eightdayopens.size();i++)
+            for (int i=0;i<eightdayopens.size();i++)
             {
                 eightdayopensflt.push_back( str2flt(eightdayopens[i]) );
             }
@@ -155,6 +153,7 @@ int main()
             cout << "eightdayopen change 8: " << eightdayopensflt[7] <<endl;
             cout << "\n\n" <<endl;
         }
+        vector<string>(eightdayopens).swap(eightdayopens);
 
         vector<string> eightdayhighs;
         string eightdayhigh;
@@ -163,10 +162,9 @@ int main()
         {
             eightdayhighs.push_back(eightdayhigh);
         }
-        //vector<float> eightdayhighsflt;
         if (eightdayhighs.size() == 8)
         {
-            for (int i=0;i<=eightdayhighs.size();i++)
+            for (int i=0;i<eightdayhighs.size();i++)
             {
                 eightdayhighsflt.push_back( str2flt(eightdayhighs[i]) );
             }
@@ -180,6 +178,7 @@ int main()
             cout << "eightdayhigh change 8: " << eightdayhighsflt[7] <<endl;
             cout << "\n\n" <<endl;
         }
+        vector<string>(eightdayhighs).swap(eightdayhighs);
 
         vector<string> eightdaylows;
         string eightdaylow;
@@ -188,10 +187,9 @@ int main()
         {
             eightdaylows.push_back(eightdaylow);
         }
-        //vector<float> eightdaylowsflt;
         if (eightdaylows.size() == 8)
         {
-            for (int i=0;i<=eightdaylows.size();i++)
+            for (int i=0;i<eightdaylows.size();i++)
             {
                 eightdaylowsflt.push_back( str2flt(eightdaylows[i]) );
             }
@@ -205,6 +203,7 @@ int main()
             cout << "eightdaylow change 8: " << eightdaylowsflt[7] <<endl;
             cout << "\n\n" <<endl;
         }
+        vector<string>(eightdaylows).swap(eightdaylows);
 
         vector<string> eightdaycloses;
         string eightdayclose;
@@ -213,10 +212,9 @@ int main()
         {
             eightdaycloses.push_back(eightdayclose);
         }
-        //vector<float> eightdayclosesflt;
         if (eightdaycloses.size() == 8)
         {
-            for (int i=0;i<=eightdaycloses.size();i++)
+            for (int i=0;i<eightdaycloses.size();i++)
             {
                 eightdayclosesflt.push_back( str2flt(eightdaycloses[i]) );
             }
@@ -230,6 +228,7 @@ int main()
             cout << "eightdayclose change 8: " << eightdayclosesflt[7] <<endl;
             cout << "\n\n" <<endl;
         }
+        vector<string>(eightdaycloses).swap(eightdaycloses);
 
         vector<string> eightdayvolumes;
         string eightdayvolume;
@@ -238,10 +237,9 @@ int main()
         {
             eightdayvolumes.push_back(eightdayvolume);
         }
-        //vector<int> eightdayvolumesflt;
         if (eightdayvolumes.size() == 8)
         {
-            for (int i=0;i<=eightdayvolumes.size();i++)
+            for (int i=0;i<eightdayvolumes.size();i++)
             {
                 eightdayvolumesflt.push_back( (float)str2flt(eightdayvolumes[i]) / (float)1000000 );
             }
@@ -255,12 +253,12 @@ int main()
             cout << "eightdayvolume change 8: " << eightdayvolumesflt[7] <<endl;
             cout << "\n\n" <<endl;
         }
+        vector<string>(eightdayvolumes).swap(eightdayvolumes);
     
 
         //----------------------iterate process history 9 price changes sets-----------
 
         ifstream fin("all_stockschanges_5yr_apart.csv"); //open filestream
-        //string line;
         while (getline(fin, line))   //read a line by '\n'; stop when meet EOF
         {
             cout <<"original strings："<< line << endl; //output whole line
@@ -301,7 +299,7 @@ int main()
                 vector<float> opensflt;
                 if (opens.size() == 9)
                 {
-                    for (int i=0;i<=opens.size();i++)
+                    for (int i=0;i<opens.size();i++)
                     {
                         opensflt.push_back( str2flt(opens[i]) );
                     }
@@ -316,6 +314,7 @@ int main()
                     cout << "open change 9: " << opensflt[8] <<endl;
                     cout << "\n\n" <<endl;
                 }
+                vector<string>(opens).swap(opens);
 
                 vector<string> highs;
                 string high;
@@ -327,7 +326,7 @@ int main()
                 vector<float> highsflt;
                 if (highs.size() == 9)
                 {
-                    for (int i=0;i<=highs.size();i++)
+                    for (int i=0;i<highs.size();i++)
                     {
                         highsflt.push_back( str2flt(highs[i]) );
                     }
@@ -342,6 +341,7 @@ int main()
                     cout << "high change 9: " << highsflt[8] <<endl;
                     cout << "\n\n" <<endl;
                 }
+                vector<string>(highs).swap(highs);
 
                 vector<string> lows;
                 string low;
@@ -353,7 +353,7 @@ int main()
                 vector<float> lowsflt;
                 if (lows.size() == 9)
                 {
-                    for (int i=0;i<=lows.size();i++)
+                    for (int i=0;i<lows.size();i++)
                     {
                         lowsflt.push_back( str2flt(lows[i]) );
                     }
@@ -368,6 +368,7 @@ int main()
                     cout << "low change 9: " << lowsflt[8] <<endl;
                     cout << "\n\n" <<endl;
                 }
+                vector<string>(lows).swap(lows);
 
                 vector<string> closes;
                 string close;
@@ -379,7 +380,7 @@ int main()
                 vector<float> closesflt;
                 if (closes.size() == 9)
                 {
-                    for (int i=0;i<=closes.size();i++)
+                    for (int i=0;i<closes.size();i++)
                     {
                         closesflt.push_back( str2flt(closes[i]) );
                     }
@@ -394,6 +395,7 @@ int main()
                     cout << "close change 9: " << closesflt[8] <<endl;
                     cout << "\n\n" <<endl;
                 }
+                vector<string>(closes).swap(closes);
 
                 vector<string> volumes;
                 string volume;
@@ -405,7 +407,7 @@ int main()
                 vector<float> volumesflt;
                 if (volumes.size() == 9)
                 {
-                    for (int i=0;i<=volumes.size();i++)
+                    for (int i=0;i<volumes.size();i++)
                     {
                         volumesflt.push_back( (float)str2flt(volumes[i]) / (float)1000000);
                     }
@@ -420,6 +422,7 @@ int main()
                     cout << "volume change 9: " << volumesflt[8] <<endl;
                     cout << "\n\n" <<endl;
                 }
+                vector<string>(volumes).swap(volumes);
             
 
                 //----------------------compute euclidean Distance-----------
@@ -468,7 +471,7 @@ int main()
                 continue;
             }
         }
-
+        fin.close();
 
         //----------------------print final matched 9 price changes set-----------
         cout << "\n\n-------------------\nfinal matched 9 prices changes set:" << endl;
@@ -502,7 +505,8 @@ int main()
 
     }
 
+    eightdayfin.close();
     outFile.close(); 
-    return EXIT_SUCCESS;
+    return 0;
 }
 
