@@ -51,7 +51,8 @@ int main()
         
 
     // read 8 days prices changes before the day we want to predict
-    ifstream eightdayfin("9days_8changes_4predict.csv");
+    //ifstream eightdayfin("9days_8changes_4predict.csv");
+    ifstream eightdayfin("9days_8changes_4predict_partial_companies.csv");// 5% companies randomly selected
     string line;
     vector<float> eightdayopensflt;
     vector<float> eightdayhighsflt;
@@ -202,7 +203,8 @@ int main()
 
         //----------------------iterate process history 9 price changes sets-----------
 
-        ifstream fin("all_stockschanges_5yr.csv"); //open filestream
+        //ifstream fin("all_stockschanges_5yr.csv"); //open filestream
+        ifstream fin("all_stockschanges_5yr_5perct.csv"); //open filestream // 5% companies randomly selected
         while (getline(fin, line))   //read a line by '\n'; stop when meet EOF
         {
             istringstream sin(line); //read whole line into stringstream 'sin'
