@@ -8,4 +8,4 @@ At first I have lots of history price and I make each 10 as a set and in each se
 
 
 # Report:
-[here](CMSC 611 Project Report.pdf)
+[here](CMSC%20611%20Project%20Report.pdf)
